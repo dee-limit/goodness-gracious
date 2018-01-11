@@ -15,7 +15,7 @@ def clean():
                                  db=db_login.db,
                                  charset=db_login.charset)
     with connection.cursor() as cursor:
-        cursor.execute("SELECT id FROM current WHERE date_added < DATE_SUB(NOW(), INTERVAL 1 DAY)")
+        cursor.execute("SELECT id FROM current WHERE date_added < DATE_SUB(NOW(), INTERVAL 3 DAY)")
         result = cursor.fetchall()
         for (file_id) in result:
             print("Clearing %s from db..."%(file_id))
