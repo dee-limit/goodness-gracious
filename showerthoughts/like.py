@@ -41,7 +41,7 @@ def random_like():
         if not_favorited and clean:
             eligible_tweets.append(tweet.id)
 
-    eligible_tweets = eligible_tweets [:30]
+    eligible_tweets = eligible_tweets [:40]
     print("%d tweets eligible"%len(eligible_tweets))
     for eligible_tweet in eligible_tweets:
         time.sleep(random.randint(1, 3))
