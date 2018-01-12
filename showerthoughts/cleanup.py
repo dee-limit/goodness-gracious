@@ -46,7 +46,7 @@ def update_scores():
         submission = reddit.submission(id=post_id)
         post_score = int(submission.score)
 
-        with connection.cursor as cursor:
+        with connection.cursor() as cursor:
             cursor.execute("UPDATE current SET score=%d WHERE id='%s'"%(post_score, post_id))
             print("Set score for %s to %d"%(post_id, post_score))
         connection.commit()
