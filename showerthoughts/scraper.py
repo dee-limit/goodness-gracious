@@ -24,7 +24,7 @@ def scrape():
     showerthoughts = reddit.subreddit("showerthoughts").hot(limit=20)
 
     for submission in showerthoughts:
-        if not submission.stickied:
+        if not submission.stickied and not submission.id in scraped:
             post_id = submission.id
             title = submission.title
             score = submission.score
