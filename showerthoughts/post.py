@@ -21,7 +21,7 @@ def post():
                       access_token_secret=tw_auth.details['acc_sec'])
 
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM current ORDER BY score DESC LIMIT 0, 1")
+        cursor.execute("SELECT id, score, title FROM current ORDER BY score DESC LIMIT 0, 1")
         for (post_id, score, title) in cursor:
             if int(score) > 1000 and len(title) < 240:
                 tweet = api.PostUpdate(status=title,
@@ -29,7 +29,7 @@ def post():
                                        longitude="-73.968041",
                                        verify_status_length=False)
 
-            cursor.execute("DELETE FROM current WHERE id='%s"%post_id)
+            cursor.execute("DELETE FROM current WHERE id='%s'"%post_id)
     connection.commit()
     connection.close()
     return tweet
