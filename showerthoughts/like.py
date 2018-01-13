@@ -54,8 +54,8 @@ def random_like():
             with connection.cursor() as cursor:
                 cursor.execute("INSERT INTO favorited_tweets(status) VALUES(%d)"%(eligible_tweet))
                 connection.commit()
-        except:
-            print("Failed to like")
+        except Exception as e:
+            print("Failed to like\n" + str(e))
         connection.commit()
     connection.close()
     print("Done")
