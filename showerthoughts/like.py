@@ -41,7 +41,7 @@ def random_like():
             for dirty_word in dirty_words:
                 if dirty_word in tweet.text:
                     clean = False
-            if not_favorited and clean:
+            if not_favorited and clean and safe_handle and safe_name:
                 eligible_tweets.append(tweet.id)
 
     eligible_tweets = eligible_tweets [:40]
