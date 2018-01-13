@@ -28,18 +28,21 @@ def random_like():
                       access_token_key=tw_auth.details['acc_key'],
                       access_token_secret=tw_auth.details['acc_sec'])
 
-    search_key_word = search_terms[random.randint(0, len(search_terms)-1)]
-    print("Searching with keyword '%s'"%search_key_word)
-    raw_tweets = api.GetSearch(term=search_key_word, since=today, count=100, result_type="recent", include_entities=True)
-    print("Found %d tweets"%len(raw_tweets))
-    for tweet in raw_tweets:
-        clean = True
-        not_favorited = not tweet.favorited
-        for dirty_word in dirty_words:
-            if dirty_word in tweet.text:
-                clean = False
-        if not_favorited and clean:
-            eligible_tweets.append(tweet.id)
+    while len(eligible_tweets) < 15:
+        search_key_word = search_terms[random.randint(0, len(search_terms)-1)]
+        print("Searching with keyword '%s'"%search_key_word)
+        raw_tweets = api.GetSearch(term=search_key_word, since=today, count=100, result_type="recent", include_entities=True)
+        print("Found %d tweets"%len(raw_tweets))
+        for tweet in raw_tweets:
+            clean = True
+            not_favorited = not tweet.favorited
+            safe_handle = not "shower" in tweet.user.screen_name.lower() and not "thought" in tweet.user.screen_name.lower()
+            safe_name = not "shower" in tweet.user.name.lower() and not "thought" in tweet.user.name.lower()
+            for dirty_word in dirty_words:
+                if dirty_word in tweet.text:
+                    clean = False
+            if not_favorited and clean:
+                eligible_tweets.append(tweet.id)
 
     eligible_tweets = eligible_tweets [:40]
     print("%d tweets eligible"%len(eligible_tweets))
