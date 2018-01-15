@@ -24,7 +24,7 @@ def scrape():
     for entry in result:
         scraped.append(entry[0])
 
-    reddit = praw.Reddit('bot1', user_agent="scrapes popular posts by /u/BellsOfFury")
+    reddit = praw.Reddit('bot1', user_agent="scrapes politicalhumor posts by /u/BellsOfFury")
     popular_submissions = reddit.subreddit("politicalhumor").hot(limit=60)
 
     for submission in popular_submissions:
